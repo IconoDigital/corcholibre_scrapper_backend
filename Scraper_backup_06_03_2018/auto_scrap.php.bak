@@ -1,0 +1,199 @@
+<?php 
+set_time_limit(0);
+include("includes/DatabaseConnection.php");
+//$sql="SELECT * FROM product_list WHERE TIMEDIFF(NOW(),last_parsed)>'2:00:00'";
+$sql="SELECT * FROM product_list";
+$rs=mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+while($res=mysqli_fetch_array($rs))
+{
+	if($res["source"]=="plazavea")
+	{
+		include_once('simple_html_dom.php');
+if(file_exists('scrape.html'))
+{
+	unlink("scrape.html");
+}
+exec("/usr/local/bin/phantomjs fetch_page.js ".$res["link"]."",$o,$e);
+
+if($e==0)
+{
+
+$link='scrap.html';
+$html = file_get_html($link); // Create DOM from URL or file
+
+  $servername = "localhost";
+  $username = "root";
+  $password = "news5cs3";
+
+  $i=0;
+  $j=0;
+  $product_name='';
+  $unit='';
+  $brand_name='';
+  $price='';
+  $offer_price='';
+  $offer_title='';
+  $offer_conditions='';
+  $date='';
+  $dateformat='0000-00-00';
+
+  
+  //The name of the directory that we need to create.
+  $directoryName = 'product_images_plazavea';
+ 
+  //Check if the directory already exists.
+  if(!is_dir($directoryName)){
+    //Directory does not exist, so lets create it.
+   mkdir($directoryName, 0777);
+  }
+   
+ //find image url
+		   foreach($html->find('.image-zoom') as $ele) 
+           {  
+			   $image_src=$ele->href;
+			   $scrap[]= "Image Link:".$image_src.'<br>';
+		   } 
+		   
+		   //$url='http://www.tottus.com.pe/static/15a//img/img-com/icons/add-note.png';
+	    //final description and brand_name
+       foreach($html->find('.product-name') as $element) 
+       {
+		   foreach($element->find('div') as $ele) 
+          {
+			 $product_name=mysqli_real_escape_string($mysqli,$ele->innertext);	
+		     $product_n=$ele->innertext;
+		      $scrap[]= "Product Name:".$product_name.'<br>';
+		  }
+       }
+	    $img_file='product_images_plazavea/'.$product_n.".jpg";
+		if(file_exists($img_file))
+		{
+			unlink($img_file);
+		}
+        grab_image($image_src,$img_file);
+	   //brand_name
+	    foreach($html->find('.brandName') as $element) 
+        {
+			 foreach($element->find('a') as $ele) 
+           {
+			  $brand_name=mysqli_real_escape_string($mysqli,$ele->innertext);
+              //$brand_name=$ele->innertext;
+			   $scrap[]= "Brand Name:".$brand_name.'<br>';		   		    
+           }
+			
+	    }
+	  
+	   //find offer price
+	  
+	     foreach($html->find('.product-information .descricao-preco .price-multiplier strong') as $element) 
+       {	
+			$offer_price=$element->innertext;		
+			 $scrap[]= "Offer Price:".$offer_price.'<br>';
+	   }
+	   $p='S/. 0.00';
+	   if($offer_price=="")
+	   {
+		     foreach($html->find('.skuBestPrice') as $element) 
+       {	
+			$offer_price=$element->innertext;		
+			 $scrap[]= "Offer Price:".$offer_price.'<br>';
+	   }
+	   }
+	    //find original_price;
+	    foreach($html->find('.skuListPrice') as $element) 
+       {		
+	      
+           $price=$element->innertext;	
+            if($price==$p)
+			{
+             $price=$offer_price;	
+			 $offer_price='';
+			}			 
+		    $scrap[]= 'original_price: '.$price.'<br>';
+	   }
+	   
+	   if($price=="")
+	   {
+		foreach($html->find('.skuBestPrice') as $element) 
+       {	
+			$price=$element->innertext;		
+			 $scrap[]= "Price:".$price.'<br>';
+	   }
+	   }
+	   
+	    foreach($html->find('.product-conditions .product-conditions-inner .product-conditions-tooltip .product-conditions-window .product-conditions-header') as $element) 
+       {	
+			$offer_title=$element->innertext;		
+			 $scrap[]= "Offer title:".$offer_title.'<br>';
+	   }
+	   
+	   //find red_letters and price_offer
+	      //foreach($html->find('div class=product-conditions') as $element) 
+      // {
+	  
+	    
+		  foreach($html->find(".productDescription") as $ele) 
+           {	   
+			  $disclaimer=$ele->innertext;		
+			   $scrap[]= "disclaimer:".$disclaimer.'<br>';
+			  break;
+		   }
+		   
+		   foreach($html->find(".product-conditions-content") as $ele) 
+           {	   
+			  $conditions=$ele->innertext;	
+				$conditions=str_replace("/<font/>","",$conditions);
+				$conditions=str_replace("/<\/font/>","",$conditions);
+				$conditions=str_replace("<br>","",$conditions);
+				$conditions=preg_replace("/<a.*<\/a>/","",$conditions);
+			   $scrap[]= "conditions:".$conditions.'<br>';
+			  
+			  $matches = array();
+                   preg_match('/\d\d\/\d\d\/\d\d\d\d/', $conditions, $matches);
+				   if($matches)
+				   {
+					 $dat=trim($matches[0]);
+					 $date = $dat;
+                     $date = str_replace('/', '-', $date);
+                      $scrap[]= "<br>ends:".$dateformat= date('Y-m-d', strtotime($date));
+				     
+				   }
+		   }
+		   if(!isset($conditions))
+		   {
+			   $price=$offer_price;
+			   $offer_price=0;
+			   $conditions="";
+		   }
+			
+	   
+  $source="plazavea";
+  $query="insert into product(product_name,product_desc,brand_name,unit,price,offer_price,offer_title,offer_conditions,source,valid_until,url) values("; //str_to_date('".$date."','%d-%m-%Y')
+  
+  $query=$query."'".$product_name."','','".$brand_name."','".$unit."','".$price."','".$offer_price."','".$offer_title."','".$conditions."','".$source."','".$dateformat."','-') ON DUPLICATE KEY UPDATE 
+   `product_desc`='".''."',brand_name='".$brand_name."',unit='".$unit."',price='".$price."',offer_price='".$offer_price."',offer_title='".$offer_title."',offer_conditions='".$conditions."',source='".$source."',valid_until='".$dateformat."'";
+   $scrap[]=  "<br>Query:".$query;
+   
+
+  mysqli_query($mysqli,$query)or die_u(mysqli_error($mysqli));
+	}
+	
+}
+	if($res["source"]=="tottus")
+	{}
+}
+
+
+
+  function grab_image($url,$saveto){
+    $ch = curl_init($url);
+	$fp = fopen($saveto,'x');
+	curl_setopt($ch, CURLOPT_FILE, $fp);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_exec($ch);
+	curl_close($ch);
+	fclose($fp);
+	
+  }
+            
+?>

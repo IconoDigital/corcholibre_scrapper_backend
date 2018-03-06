@@ -1,0 +1,24 @@
+[05-Oct-2016 15:31:38 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[05-Oct-2016 15:31:38 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[05-Oct-2016 15:39:34 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[05-Oct-2016 15:39:34 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[05-Oct-2016 15:40:06 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[05-Oct-2016 15:40:06 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[05-Oct-2016 15:43:25 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 46
+[05-Oct-2016 15:43:48 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 46
+[05-Oct-2016 15:45:08 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 46
+[05-Oct-2016 15:48:37 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 46
+[05-Oct-2016 15:49:50 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 47
+[05-Oct-2016 15:50:01 Europe/London] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/codohost/public_html/projects/scraping_basic/admin/login.php on line 47
+[05-Oct-2016 15:58:43 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[05-Oct-2016 15:58:43 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[06-Oct-2016 08:02:18 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[06-Oct-2016 08:02:18 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[06-Oct-2016 13:33:48 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[06-Oct-2016 13:33:48 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[06-Oct-2016 13:36:04 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[06-Oct-2016 13:36:04 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[06-Oct-2016 13:39:32 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[06-Oct-2016 13:39:32 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
+[07-Oct-2016 14:32:00 Europe/London] PHP Notice:  Undefined index: user_name in /home/codohost/public_html/projects/scraping_basic/admin/header.php on line 63
+[07-Oct-2016 14:32:00 Europe/London] PHP Notice:  Undefined index: user_type in /home/codohost/public_html/projects/scraping_basic/admin/admin-sidebar.php on line 15
